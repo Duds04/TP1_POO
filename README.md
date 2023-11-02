@@ -5,3 +5,7 @@ Duas possíveis ideias:
 - Dicionario para biblioteca
   
  Acabou sendo decidido o Campo Minado 
+
+ ## Diagrama de Classes
+
+ <img src="diagramaClasses.jpg"> </img>
