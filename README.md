@@ -9,3 +9,7 @@ Duas possíveis ideias:
  ## Diagrama de Classes
 
  <img src="diagramaClasses.jpg"> </img>
+
+ ## Diagrama de Casos de uso
+
+ <img src="diagramaCasos.png"> </img>
