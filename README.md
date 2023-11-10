@@ -13,7 +13,3 @@ Duas possíveis ideias:
  ## Diagrama de Casos de uso
 
  <img src="diagramaCasos.png"> </img>
-
- # To Do
-
- //TODO: 
