@@ -48,12 +48,13 @@ public class Mapa {
         for(i = 0; i<this.linhas; i++){
             for(j=0; j<this.colunas; j++){
                 //if(mapa[y][x] não é bomba){
-                    //cria
+                    bombasAdj = this.contaBomba(i, j);
+                    // cria bloco 
                 //}
             }
         }
     }
-    private int verificaAdj(int posX, int posY){
+    private int contaBomba(int posX, int posY){
         int cont = 0;
         /*
          * if(posY-1>=0 && posX>=0 && posY-1<this.linhas && posX<this.colunas){
