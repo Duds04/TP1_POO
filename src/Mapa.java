@@ -28,11 +28,19 @@ public class Mapa {
         return this.totalBombas;
     }
     public int modificaBadeira(int coordenadaX, int coordenadaY){
+//        mapa[coordenadaX][coordenadaX].modificaBandeira();
         return 0;
     }
-    public int abrirBloco(){
+    public int abrirBloco(int coordenadaX, int coordenadaY){
+
+//        if(mapa[coordenadaX][coordenadaX].isBomba()) 
+//            finalizaPartida();
+//        else
+//            mapa[coordenadaX][coordenadaX].revelaBloco();
+//        
         return 0;
     }
+    
     public int backtrackingAbreVazio(int coordenadaX, int coordenadaY){
         // Filtra se X e Y estao fora do mapa
         if (coordenadaX < 0 ||coordenadaX >= this.linhas){
@@ -60,9 +68,12 @@ public class Mapa {
         backtrackingAbreVazio(coordenadaX + 1, coordenadaY + 1);
         return 0;
     }
+    
     public int finalizaPartida(){
+        revelaOutrasBombas();
         return 0;
     }
+    
     public int revelaOutrasBombas(){
         for (int i = 0; i < this.linhas; i++){
             for (int j = 0; j < this.colunas; j++){
