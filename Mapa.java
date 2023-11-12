@@ -43,6 +43,61 @@ public class Mapa {
     }
 
     private void completaCampo(String dificuldade){
-        
+        int bombasAdj;
+        int i, j;
+        for(i = 0; i<this.linhas; i++){
+            for(j=0; j<this.colunas; j++){
+                //if(mapa[y][x] não é bomba){
+                    //cria
+                //}
+            }
+        }
+    }
+    private int verificaAdj(int posX, int posY){
+        int cont = 0;
+        /*
+         * if(posY-1>=0 && posX>=0 && posY-1<this.linhas && posX<this.colunas){
+         *      if(mapa[y-1][x] mapa[y-1][x] é bomba){
+         *          cont++;
+         *      }
+         * }
+         * if(posY-1>=0 && posX-1>=0 && posY-1<this.linhas && posX-1<this.colunas){
+         *      if(mapa[y-1][x-1] é bomba){
+         *          cont++;
+         *      }
+         * }
+         * if(posY-1>=0 && pos+1>=0 && posY-1<this.linhas && posX+1<this.colunas){
+         *      if(mapa[y-1][x+1] é bomba){
+         *          cont++;
+         *      }
+         * }
+         * if(posY>=0 && posX-1>=0 && posY<this.linhas && posX-1<this.colunas){
+         *      if(mapa[y][x-1] é bomba){
+         *          cont++;
+         *      }
+         * }
+         * if(posY>=0 && posX+1>=0 && posY<this.linhas && posX+1<this.colunas){
+         *      if(mapa[y][x+1] é bomba){
+         *          cont++;
+         *      }
+         * }
+         * if(posY+1>=0 && posX>=0 && posY+1<this.linhas && posX<this.colunas){
+         *      if(mapa[y+1][x] é bomba){
+         *          cont++;
+         *      }
+         * }
+         * if(posY+1>=0 && posX-1>=0 && posY+1<this.linhas && posX-1<this.colunas){
+         *      if(mapa[y+1][x-1] é bomba){
+         *          cont++;
+         *      }
+         * }
+         * if(posY+1>=0 && posX+1>=0 && posY+1<this.linhas && posX+1<this.colunas){
+         *      if(mapa[y+1][x+1] é bomba){
+         *          cont++;
+         *      }
+         * }
+         * 
+         */
+        return cont;
     }
 }
