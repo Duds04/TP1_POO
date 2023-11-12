@@ -64,7 +64,12 @@ public class Mapa {
         return 0;
     }
     public int revelaOutrasBombas(){
-        return 0;
+        for (int i = 0; i < this.linhas; i++){
+            for (int j = 0; j < this.colunas; j++){
+                // TODO: se for pra mostrar aos poucos, tem que ir colocar um timer. Ha se averiguar como será feito
+                if (!this.mapa[i][j].isRevelado()) this.mapa[i][j].revelaBloco();
+            }
+        }
     }
 
 }
