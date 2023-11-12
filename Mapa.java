@@ -9,7 +9,7 @@ public class Mapa {
 
     }
 
-    private void geraMapa(String dificuldade){
+    private int geraMapa(String dificuldade){
         // separei linhas e colunas no caso de querermos fazer um campo minado de outra forma, não necessáriamente quadrado
         int i = 0, j= 0;
         double posX, posY;
@@ -39,10 +39,11 @@ public class Mapa {
             // i++    
             //}
         }
+        return 1;
 
     }
 
-    private void completaCampo(String dificuldade){
+    private int completaCampo(String dificuldade){
         int bombasAdj;
         int i, j;
         for(i = 0; i<this.linhas; i++){
@@ -53,6 +54,7 @@ public class Mapa {
                 //}
             }
         }
+        return 1;
     }
     private int contaBomba(int posX, int posY){
         int cont = 0;
