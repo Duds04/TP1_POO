@@ -3,19 +3,12 @@ import java.util.ArrayList;
 // TODO: se houver uma casa na diagonal que é vazia, o backtracking deve abri-la ou nao? se não, é necessario filtrar
 
 public class Mapa {
-    private int totalDeBombas;
+
+    private Bloco[][] mapa;
+    private int totalBombas;
     private int bandeirasRestantes;
-
-    // Esses seriam os valores das dimensoes das matrizes usados para setar a dificuldade
-    private static int dificuldadeFacilX = 10;
-    private static int dificuldadeFacilY = 10;
-    private static int dificuldadeMediaX = 10;
-    private static int dificuldadeMediaY = 10;
-    private static int dificuldadeDificilX = 10;
-    private static int dificuldadeDificilY = 10;
-
-    // TODO: conferir se o tipo do mapa será esse mesmo
-    private ArrayList<ArrayList<Bloco>> mapa;
+    private int linhas;
+    private int colunas;
 
 
     public Mapa (String dificuldade){
@@ -32,7 +25,7 @@ public class Mapa {
         return 0;
     }
     public int getTotalDeBombas() {
-        return totalDeBombas;
+        return this.totalBombas;
     }
     public int modificaBadeira(int coordenadaX, int coordenadaY){
         return 0;
@@ -42,20 +35,20 @@ public class Mapa {
     }
     public int backtrackingAbreVazio(int coordenadaX, int coordenadaY){
         // Filtra se X e Y estao fora do mapa
-        if (coordenadaX < 0 ||coordenadaX >= this.mapa.size()){
+        if (coordenadaX < 0 ||coordenadaX >= this.linhas){
             return 0;
         }
-        if (coordenadaY < 0 || coordenadaY >= this.mapa.get(0).size()){ // como toda linha tera o mesmo tamanho, basta comparar com o tamanho da linha 0
+        if (coordenadaY < 0 || coordenadaY >= this.colunas){ 
             return 0;
         }
         //Ou seja, nao eh um espaco vazio:
-        if (this.mapa.get(coordenadaX).get(coordenadaY).getBombasAdjacentes() != 0){ 
+        if (this.mapa[coordenadaX][coordenadaY].getBombasAdjacentes() != 0){ 
             // o blobo deve ser aberto, porem nao deve continuar chamando a recursao para os blocos adjacentes
-            this.mapa.get(coordenadaX).get(coordenadaY).revelaBloco();
+            this.mapa[coordenadaX][coordenadaY].revelaBloco();
             return 0;
         }
 
-        this.mapa.get(coordenadaX).get(coordenadaY).revelaBloco();
+        this.mapa[coordenadaX][coordenadaY].revelaBloco();
 
         backtrackingAbreVazio(coordenadaX - 1, coordenadaY - 1);
         backtrackingAbreVazio(coordenadaX - 1, coordenadaY);
