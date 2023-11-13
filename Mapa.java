@@ -4,9 +4,14 @@ public class Mapa {
     private int bandeirasRestantes;
     private int linhas;
     private int colunas;
+    private int totCelulas;
+    private int celulasAbertas;
 
     public Mapa(String dificuldade){
-
+        this.geraMapa(dificuldade);
+        this.completaCampo();
+        this.celulasAbertas = 0;
+        this.totCelulas = (linhas*colunas) - totalBombas;
     }
 
     private int geraMapa(String dificuldade){
@@ -43,7 +48,7 @@ public class Mapa {
 
     }
 
-    private int completaCampo(String dificuldade){
+    private int completaCampo(){
         int bombasAdj;
         int i, j;
         for(i = 0; i<this.linhas; i++){
