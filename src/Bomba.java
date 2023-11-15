@@ -11,6 +11,11 @@ public class Bomba extends Bloco{
     public boolean isBomba(){
         return true;
     }
+
+    public void revelaQPerdeu(){
+        System.out.println("--------- PERDEU! ---------");
+        System.out.println("------- FIM DE JOGO -------");
+    }
 }
 
 
