@@ -9,6 +9,8 @@ public class Mapa {
     private int bandeirasRestantes;
     private int linhas;
     private int colunas;
+    private int totCelulas; // total de celulas que o usuario deve abrir
+    private int celulasAbertas;
 
 
     public Mapa (String dificuldade){
@@ -35,20 +37,39 @@ public class Mapa {
     }
     public int backtrackingAbreVazio(int coordenadaX, int coordenadaY){
         // Filtra se X e Y estao fora do mapa
+
+        // ! Estou considerando que o revelaBloco, caso abra uma bomba, chame uma funcao de finalizarPartida ou algo parecido. Se for retornar algo é necessário modificar
+        // TODO: verificar comentario acima
+        
         if (coordenadaX < 0 ||coordenadaX >= this.linhas){
             return 0;
         }
         if (coordenadaY < 0 || coordenadaY >= this.colunas){ 
             return 0;
         }
-        //Ou seja, nao eh um espaco vazio:
+
+        // Caso a celula já tenha sido aberta, ela nao deve ser aberta novamente
+        if (this.mapa[coordenadaX][coordenadaY].isRevelado() == True){
+            return 0;
+        }
+        
+        //Se nao for espaco vazio:
         if (this.mapa[coordenadaX][coordenadaY].getBombasAdjacentes() != 0){ 
             // o blobo deve ser aberto, porem nao deve continuar chamando a recursao para os blocos adjacentes
             this.mapa[coordenadaX][coordenadaY].revelaBloco();
+            this.celulasAbertas += 1;
+            if (totCelulas == celulasAbertas){
+                this.finalizaPartida();
+            }
+            
             return 0;
         }
 
         this.mapa[coordenadaX][coordenadaY].revelaBloco();
+        this.celulasAbertas += 1;
+        if (totCelulas == celulasAbertas){
+            this.finalizaPartida();
+        }
 
         backtrackingAbreVazio(coordenadaX - 1, coordenadaY - 1);
         backtrackingAbreVazio(coordenadaX - 1, coordenadaY);
@@ -61,6 +82,12 @@ public class Mapa {
         return 0;
     }
     public int finalizaPartida(){
+        if (this.totCelulas == this.celulasAbertas) {
+            System.out.println("============================================================");
+            System.out.println("PARABENS, VOCE VENCEU!!!!");
+            System.out.println("============================================================");
+            // TODO: o que fazer aqui? perguntar ao usuario que ele quer jogar de novo? fazer uma animacao? ha de se averiguar
+        }
         return 0;
     }
     public int revelaOutrasBombas(){
