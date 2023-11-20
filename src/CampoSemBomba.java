@@ -1,6 +1,11 @@
 public class CampoSemBomba extends Bloco{
     private int bombasAdjacentes;
     
+    public CampoSemBomba(int bombasAdjacentes){
+        super();
+        this.bombasAdjacentes = bombasAdjacentes;
+    }
+
     @Override
     public boolean isBomba(){
         return false;
