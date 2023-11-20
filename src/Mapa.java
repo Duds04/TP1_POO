@@ -14,7 +14,10 @@ public class Mapa {
 
 
     public Mapa (String dificuldade){
-
+        this.geraMapa(dificuldade);
+        this.completaCampo();
+        this.celulasAbertas = 0;
+        this.totCelulas = (linhas*colunas) - totalBombas;
     }
     public int geraMapa(){
         // para cada elemento do arraylist mais interno, deve-se criar um novo array list dentro dele. Segue pseudo
