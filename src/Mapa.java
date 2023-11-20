@@ -140,6 +140,7 @@ public class Mapa {
         }
         
         //Se nao for espaco vazio:
+        //TODO: tem q fazer upcasting aqui zorza
         if (this.mapa[coordenadaX][coordenadaY].getBombasAdjacentes() != 0){ 
             // o blobo deve ser aberto, porem nao deve continuar chamando a recursao para os blocos adjacentes
             this.mapa[coordenadaX][coordenadaY].revelaBloco();
