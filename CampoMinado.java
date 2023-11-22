@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class CampoMinado {
     
     // ! TUDO QUE ESTA DENTRO DESSA CLASSE PODE SER APAGADO. FOI CRIADO UNICAMENTE PARA PODER GERAR UMA CLASSE INDEPENDENTE DO BLOCO E TENTAR O BACKTRACKING ABRE VAZIO. (pode ser testado executando a classe teste)

@@ -1,11 +1,11 @@
-import java.util.ArrayList;
-
 // TODO: se houver uma casa na diagonal que é vazia, o backtracking deve abri-la ou nao? se não, é necessario filtrar
 
 public class Mapa {
 
     private Bloco[][] mapa;
     private int totalBombas;
+
+    // TODO: precisa dessa variavel?
     private int bandeirasRestantes;
     private int linhas;
     private int colunas;
@@ -21,7 +21,7 @@ public class Mapa {
     }
     public int geraMapa(String dificuldade){
         // separei linhas e colunas no caso de querermos fazer um campo minado de outra forma, não necessáriamente quadrado
-        int i = 0, j= 0;
+        int i = 0;
         int posX, posY;
         if(dificuldade.toUpperCase() == "FACIL"){
             this.linhas = 8;
@@ -66,51 +66,50 @@ public class Mapa {
         return 1;
     }
     private int contaBomba(int posX, int posY){
-    int cont = 0;
-    if(posY-1>=0 && posX>=0 && posY-1<this.linhas && posX<this.colunas){
-        if(mapa[posY-1][posX].isBomba()){
-            cont++;
+        int cont = 0;
+        if(posY-1>=0 && posX>=0 && posY-1<this.linhas && posX<this.colunas){
+            if(mapa[posY-1][posX].isBomba()){
+                cont++;
+            }
         }
-    }
-    if(posY-1>=0 && posX-1>=0 && posY-1<this.linhas && posX-1<this.colunas){
-        if(mapa[posY-1][posX-1].isBomba()){
-            cont++;
+        if(posY-1>=0 && posX-1>=0 && posY-1<this.linhas && posX-1<this.colunas){
+            if(mapa[posY-1][posX-1].isBomba()){
+                cont++;
+            }
         }
-    }
-    if(posY-1>=0 && posX+1>=0 && posY-1<this.linhas && posX+1<this.colunas){
-        if(mapa[posY-1][posX+1].isBomba()){
-            cont++;
+        if(posY-1>=0 && posX+1>=0 && posY-1<this.linhas && posX+1<this.colunas){
+            if(mapa[posY-1][posX+1].isBomba()){
+                cont++;
+            }
         }
-    }
-    if(posY>=0 && posX-1>=0 && posY<this.linhas && posX-1<this.colunas){
-        if(mapa[posY][posX-1].isBomba()){
-            cont++;
+        if(posY>=0 && posX-1>=0 && posY<this.linhas && posX-1<this.colunas){
+            if(mapa[posY][posX-1].isBomba()){
+                cont++;
+            }
         }
-    }
-    if(posY>=0 && posX+1>=0 && posY<this.linhas && posX+1<this.colunas){
-        if(mapa[posY][posX+1].isBomba()){
-            cont++;
+        if(posY>=0 && posX+1>=0 && posY<this.linhas && posX+1<this.colunas){
+            if(mapa[posY][posX+1].isBomba()){
+                cont++;
+            }
         }
-    }
-    if(posY+1>=0 && posX>=0 && posY+1<this.linhas && posX<this.colunas){
-        if(mapa[posY+1][posX].isBomba()){
-            cont++;
+        if(posY+1>=0 && posX>=0 && posY+1<this.linhas && posX<this.colunas){
+            if(mapa[posY+1][posX].isBomba()){
+                cont++;
+            }
         }
-    }
-    if(posY+1>=0 && posX-1>=0 && posY+1<this.linhas && posX-1<this.colunas){
-        if(mapa[posY+1][posX-1].isBomba()){
-            cont++;
+        if(posY+1>=0 && posX-1>=0 && posY+1<this.linhas && posX-1<this.colunas){
+            if(mapa[posY+1][posX-1].isBomba()){
+                cont++;
+            }
         }
-    }
-    if(posY+1>=0 && posX+1>=0 && posY+1<this.linhas && posX+1<this.colunas){
-        if(mapa[posY+1][posX+1].isBomba()){
-            cont++;
+        if(posY+1>=0 && posX+1>=0 && posY+1<this.linhas && posX+1<this.colunas){
+            if(mapa[posY+1][posX+1].isBomba()){
+                cont++;
+            }
         }
-    }
-
         return cont;
     }
-}
+
 
     public int getTotalDeBombas() {
         return this.totalBombas;
@@ -135,13 +134,18 @@ public class Mapa {
         }
 
         // Caso a celula já tenha sido aberta, ela nao deve ser aberta novamente
-        if (this.mapa[coordenadaX][coordenadaY].isRevelado() == True){
+        if (this.mapa[coordenadaX][coordenadaY].isRevelado() == true){
             return 0;
         }
         
+        
+        // Se for bomba sai
+        if (this.mapa[coordenadaX][coordenadaY].isBomba()) return 0;
+        
+        
         //Se nao for espaco vazio:
-        //TODO: tem q fazer upcasting aqui zorza
-        if (this.mapa[coordenadaX][coordenadaY].getBombasAdjacentes() != 0){ 
+        //TODO: conferir se foi
+        if (((CampoSemBomba) this.mapa[coordenadaX][coordenadaY]).getBombasAdjacentes() != 0){ 
             // o blobo deve ser aberto, porem nao deve continuar chamando a recursao para os blocos adjacentes
             this.mapa[coordenadaX][coordenadaY].revelaBloco();
             this.celulasAbertas += 1;
@@ -184,6 +188,7 @@ public class Mapa {
                 if (!this.mapa[i][j].isRevelado()) this.mapa[i][j].revelaBloco();
             }
         }
+        return 0;
     }
 
 }
