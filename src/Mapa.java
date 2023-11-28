@@ -21,7 +21,7 @@ public class Mapa {
     }
     public int geraMapa(String dificuldade){
         // separei linhas e colunas no caso de querermos fazer um campo minado de outra forma, não necessáriamente quadrado
-        int i = 0;
+        int i = 0,j;
         int posX, posY;
         if(dificuldade.toUpperCase() == "FACIL"){
             this.linhas = 8;
@@ -41,18 +41,25 @@ public class Mapa {
             this.totalBombas = 99;
             this.mapa = new Bloco[linhas][colunas];
         }
-        while (i<this.totalBombas) {
-            posY = (int) Math.floor(Math.random()*this.linhas);
-            posX = (int) Math.floor(Math.random()*this.colunas);
-            if(!(this.mapa[posY][posX].isBomba())){
-                this.mapa[posY][posX] = new Bomba();
-                i++;    
+        for(i = 0; i<this.linhas; i++){
+            for(j=0; j<this.colunas; j++){
+                this.mapa[i][j] = new Bloco();
             }
         }
+        i = 0;
+
+        while (i < this.totalBombas) {
+            posY = (int) Math.floor(Math.random()*this.linhas);
+            posX = (int) Math.floor(Math.random()*this.colunas);
+            if(!((this.mapa[posY][posX]).isBomba())){
+                this.mapa[posY][posX] = new Bomba();
+                i = i + 1;    
+            }
+        }    
         return 1;
     }
 
-    private int completaCampo(){
+    public int completaCampo(){
         int bombasAdj;
         int i, j;
         for(i = 0; i<this.linhas; i++){
@@ -65,7 +72,18 @@ public class Mapa {
         }
         return 1;
     }
-    private int contaBomba(int posX, int posY){
+    public void mostraCampo(){
+        int i, j;
+        for(i = 0; i<this.linhas; i++){
+            for(j=0; j<this.colunas; j++){
+                if (mapa[i][j].isBomba()) System.out.print("\tX");
+                else System.err.print("\t" + ((CampoSemBomba) mapa[i][j]).getBombasAdjacentes());
+            }
+        System.out.println("");
+        }    
+    }
+
+    private int contaBomba(int posY, int posX){
         int cont = 0;
         if(posY-1>=0 && posX>=0 && posY-1<this.linhas && posX<this.colunas){
             if(mapa[posY-1][posX].isBomba()){
@@ -144,7 +162,7 @@ public class Mapa {
         
         
         //Se nao for espaco vazio:
-        //TODO: conferir se foi
+        // TODO: conferir se foi
         if (((CampoSemBomba) this.mapa[coordenadaX][coordenadaY]).getBombasAdjacentes() != 0){ 
             // o blobo deve ser aberto, porem nao deve continuar chamando a recursao para os blocos adjacentes
             this.mapa[coordenadaX][coordenadaY].revelaBloco();
