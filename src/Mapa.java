@@ -74,12 +74,38 @@ public class Mapa {
     }
     public void mostraCampo(){
         int i, j;
+        System.out.print("X");
+        for (i = 0; i < this.colunas; i++ ){
+            System.err.print("\t" + i);
+        }
+        System.out.println("");
         for(i = 0; i<this.linhas; i++){
+            System.out.print(i);
             for(j=0; j<this.colunas; j++){
-                if (mapa[i][j].isBomba()) System.out.print("\tX");
-                else System.err.print("\t" + ((CampoSemBomba) mapa[i][j]).getBombasAdjacentes());
+                if (this.mapa[i][j].isBandeira() && this.mapa[i][j].isRevelado() == false){
+                    System.out.print("\tB");
+                    continue;
+                }
+                if (mapa[i][j].isRevelado() == false){
+                    System.out.print( "\t-");
+                    continue;
+                }
+                else if (this.mapa[i][j].isRevelado()){
+                    if (mapa[i][j].isBomba()) System.out.print("\tX");
+                    else System.err.print("\t" + ((CampoSemBomba) mapa[i][j]).getBombasAdjacentes());
+                }
             }
         System.out.println("");
+        }    
+    }
+    public void mostraCampoTudo(){
+        int i, j;
+        for(i = 0; i<this.linhas; i++){
+            for(j=0; j<this.colunas; j++){
+                if (this.mapa[i][j].isBomba()) System.out.print("\tX");
+                else System.err.print("\t" + ((CampoSemBomba) mapa[i][j]).getBombasAdjacentes());
+            }
+        System.out.println(" asas");
         }    
     }
 
@@ -133,9 +159,14 @@ public class Mapa {
         return this.totalBombas;
     }
     public int modificaBadeira(int coordenadaX, int coordenadaY){
+        this.mapa[coordenadaX][coordenadaY].modificaBandeira();
         return 0;
     }
-    public int abrirBloco(){
+    public int abrirBloco( int coordenadaX, int coordenadaY){
+        if (this.mapa[coordenadaX][coordenadaY].isBomba()) {
+            this.finalizaPartida();
+        }
+        backtrackingAbreVazio(coordenadaX, coordenadaY);
         return 0;
     }
     public int backtrackingAbreVazio(int coordenadaX, int coordenadaY){
@@ -196,6 +227,11 @@ public class Mapa {
             System.out.println("PARABENS, VOCE VENCEU!!!!");
             System.out.println("============================================================");
             // TODO: o que fazer aqui? perguntar ao usuario que ele quer jogar de novo? fazer uma animacao? ha de se averiguar
+        }
+        else {
+            System.out.println("============================================================");
+            System.out.println("PARABENS, VOCE perdeu!!!!");
+            System.out.println("============================================================");
         }
         return 0;
     }
