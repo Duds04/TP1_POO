@@ -1,3 +1,4 @@
+package GameClasses;
 // TODO: se houver uma casa na diagonal que é vazia, o backtracking deve abri-la ou nao? se não, é necessario filtrar
 
 public class Mapa {

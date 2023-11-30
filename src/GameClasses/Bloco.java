@@ -1,3 +1,4 @@
+package GameClasses;
 
 public class Bloco{
     private boolean bandeira;

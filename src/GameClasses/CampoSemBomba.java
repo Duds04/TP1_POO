@@ -1,3 +1,4 @@
+package GameClasses;
 public class CampoSemBomba extends Bloco{
     private int bombasAdjacentes;
     

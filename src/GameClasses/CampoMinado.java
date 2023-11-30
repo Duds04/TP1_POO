@@ -1,3 +1,4 @@
+package GameClasses;
 import java.util.Scanner;
 
 public class CampoMinado {
