@@ -69,9 +69,9 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: purple;" VBox.vgrow="ALWAYS">
       <children>
-            <Button layoutX="303.0" layoutY="252.0" mnemonicParsing="false" text="DIFICIL" />
-            <Button layoutX="304.0" layoutY="151.0" mnemonicParsing="false" onAction="#up" text="FACIL" />
-            <Button layoutX="303.0" layoutY="204.0" mnemonicParsing="false" text="MEDIO" />
+            <Button layoutX="303.0" layoutY="252.0" mnemonicParsing="false" onAction="#abrirDificil" text="DIFICIL" />
+            <Button layoutX="304.0" layoutY="151.0" mnemonicParsing="false" onAction="#abrirFacil" text="FACIL" />
+            <Button fx:id="buttonMedio" layoutX="303.0" layoutY="204.0" mnemonicParsing="false" onAction="#abrirMedio" text="MEDIO" />
             <Label alignment="BASELINE_CENTER" layoutX="170.0" layoutY="47.0" prefHeight="85.0" prefWidth="319.0" text="CAMPO MINADO!!!" textFill="#c1cc4b">
                <font>
                   <Font size="26.0" />
