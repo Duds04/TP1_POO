@@ -62,12 +62,12 @@ public class controlerDifficult {
 
 
     public void abrirFacil(ActionEvent event) throws IOException {
-        GridPane root = FXMLLoader.load(getClass().getResource("mapaFacin.fxml"));
+        // GridPane root = FXMLLoader.load(getClass().getResource("mapaFacin.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root, 800, 800));
+        // stage.setScene(new Scene(root, 800, 800));
 
 
-		// Scene scene = new Scene(this.grid, 300, 300);
+		Scene scene = new Scene(this.grid, 300, 300);
 		// for (int i = 0; i < 8; i++){
 		// 	for (int j = 0; j < 8; j++){
 		// 		Button button = new Button(" ");
@@ -78,6 +78,7 @@ public class controlerDifficult {
         // }
         this.initialize();
 		// this.mapa = new Mapa("FACIL");
+        stage.setScene(scene);
 		stage.setTitle("NIVEL FACIL");
 		stage.show();
 
