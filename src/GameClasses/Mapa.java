@@ -3,7 +3,7 @@ package GameClasses;
 
 public class Mapa {
 
-    private Bloco[][] mapa;
+    public Bloco[][] mapa;
     private int totalBombas;
 
     // TODO: precisa dessa variavel?
@@ -110,7 +110,7 @@ public class Mapa {
         }    
     }
 
-    private int contaBomba(int posY, int posX){
+    public int contaBomba(int posY, int posX){
         int cont = 0;
         if(posY-1>=0 && posX>=0 && posY-1<this.linhas && posX<this.colunas){
             if(mapa[posY-1][posX].isBomba()){
@@ -254,4 +254,7 @@ public class Mapa {
         return this.colunas;
     }
 
+    public boolean isRevelado(int x, int y){
+        return this.mapa[x][y].isRevelado();
+    }
 }

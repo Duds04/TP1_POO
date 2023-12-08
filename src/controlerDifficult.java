@@ -27,10 +27,36 @@ public class controlerDifficult {
     private Scene scene;
     private Parent root;
         
-
-    public void initialize() {
-        int numCols = 8 ;
+    
+    public void initialize(){
+        int numCols = 8 ; 
         int numRows = 8 ;
+        this.grid = new GridPane();
+
+        for (int i = 0 ; i < numCols ; i++) {
+            ColumnConstraints colConstraints = new ColumnConstraints();
+            colConstraints.setHgrow(Priority.SOMETIMES);
+            grid.getColumnConstraints().add(colConstraints);
+        }
+
+        for (int i = 0 ; i < numRows ; i++) {
+            RowConstraints rowConstraints = new RowConstraints();
+            rowConstraints.setVgrow(Priority.SOMETIMES);
+            grid.getRowConstraints().add(rowConstraints);
+        }
+
+        for (int i = 0 ; i < numCols ; i++) {
+            for (int j = 0; j < numRows; j++) {
+                addPane(i, j);
+                
+            }
+        }
+    }
+
+    public void iniciaGrid(){
+        System.out.println();
+        int numCols = mapa.getColunas() ; 
+        int numRows = mapa.getLinhas() ;
         this.grid = new GridPane();
 
         for (int i = 0 ; i < numCols ; i++) {
@@ -58,11 +84,31 @@ public class controlerDifficult {
         pane.setPrefSize(30, 30);
         pane.setOnMouseClicked(e -> {
             System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
-            pane.setText(mapa.abrirBloco(colIndex, rowIndex));
+            mapa.abrirBloco(rowIndex, colIndex);
+            atualizaPane();
         });
         grid.add(pane, colIndex, rowIndex);
     }
 
+    private void atualizaPane(){
+        int i, j;
+        Button aux;
+        for(i=0;i<mapa.getLinhas();i++){
+            for(j=0;j<mapa.getColunas();j++){
+                if(mapa.isRevelado(i, j)){
+                    for (javafx.scene.Node node : grid.getChildren()) {
+                        if (GridPane.getRowIndex(node) != null && GridPane.getRowIndex(node) == i
+                                && GridPane.getColumnIndex(node) != null && GridPane.getColumnIndex(node) == j
+                                && node instanceof Button) {
+                            aux = (Button) node;
+                            aux.setText(""+mapa.contaBomba(i,j));
+                            System.out.println("chega aqui");
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     public void abrirFacil(ActionEvent event) throws IOException {
         mapa = new Mapa("FACIL");
@@ -80,7 +126,7 @@ public class controlerDifficult {
 		// 		root.setHgap(10);
 		// 	}
         // }
-        this.initialize();
+        this.iniciaGrid();
 		// this.mapa = new Mapa("FACIL");
         stage.setScene(scene);
 		stage.setTitle("NIVEL FACIL");
