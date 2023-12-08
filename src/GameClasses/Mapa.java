@@ -163,12 +163,12 @@ public class Mapa {
         this.mapa[coordenadaX][coordenadaY].modificaBandeira();
         return 0;
     }
-    public int abrirBloco( int coordenadaX, int coordenadaY){
+    public String abrirBloco( int coordenadaX, int coordenadaY){
         if (this.mapa[coordenadaX][coordenadaY].isBomba()) {
             this.finalizaPartida();
         }
         backtrackingAbreVazio(coordenadaX, coordenadaY);
-        return 0;
+        return ""+this.contaBomba(coordenadaX, coordenadaY);
     }
     public int backtrackingAbreVazio(int coordenadaX, int coordenadaY){
         // Filtra se X e Y estao fora do mapa
@@ -244,6 +244,14 @@ public class Mapa {
             }
         }
         return 0;
+    }
+
+    public int getLinhas(){
+        return this.linhas;
+    }
+
+    public int getColunas(){
+        return this.colunas;
     }
 
 }

@@ -2,7 +2,7 @@
 
 import java.io.IOException;
 
-import GameClasses.Mapa;
+import GameClasses.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,20 +48,24 @@ public class controlerDifficult {
         for (int i = 0 ; i < numCols ; i++) {
             for (int j = 0; j < numRows; j++) {
                 addPane(i, j);
+                
             }
         }
     }
 
     private void addPane(int colIndex, int rowIndex) {
-        Button pane = new Button();
+        Button pane = new Button(" ");
+        pane.setPrefSize(30, 30);
         pane.setOnMouseClicked(e -> {
             System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
+            pane.setText(mapa.abrirBloco(colIndex, rowIndex));
         });
         grid.add(pane, colIndex, rowIndex);
     }
 
 
     public void abrirFacil(ActionEvent event) throws IOException {
+        mapa = new Mapa("FACIL");
         // GridPane root = FXMLLoader.load(getClass().getResource("mapaFacin.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         // stage.setScene(new Scene(root, 800, 800));
@@ -84,6 +88,7 @@ public class controlerDifficult {
 
     }
     public void abrirMedio(ActionEvent event) throws IOException {
+        Mapa mapa = new Mapa("MEDIO");
 		root = FXMLLoader.load(getClass().getResource("mapaMedio.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
