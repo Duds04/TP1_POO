@@ -102,7 +102,6 @@ public class controlerDifficult {
                                 && node instanceof Button) {
                             aux = (Button) node;
                             aux.setText(""+mapa.contaBomba(i,j));
-                            System.out.println("chega aqui");
                         }
                     }
                 }
