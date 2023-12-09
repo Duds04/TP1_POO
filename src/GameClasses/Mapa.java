@@ -165,7 +165,7 @@ public class Mapa {
     }
     public String abrirBloco( int coordenadaX, int coordenadaY){
         if (this.mapa[coordenadaX][coordenadaY].isBomba()) {
-            this.finalizaPartida();
+            ((Bomba)this.mapa[coordenadaX][coordenadaY]).revelaQPerdeu();
         }
         backtrackingAbreVazio(coordenadaX, coordenadaY);
         return ""+this.contaBomba(coordenadaX, coordenadaY);

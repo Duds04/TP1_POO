@@ -79,25 +79,14 @@ public class App extends Application{
             System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
             mapa.abrirBloco(rowIndex, colIndex);
             mapa.mostraCampo();
-        //     for(i=0;i<mapa.getLinhas();i++){
-        //     for(j=0;j<mapa.getColunas();j++){
-        //         if(mapa.isRevelado(i, j)){
-        //             for (javafx.scene.Node node : grid.getChildren()) {
-        //                 if (GridPane.getRowIndex(node) != null && GridPane.getRowIndex(node) == i
-        //                         && GridPane.getColumnIndex(node) != null && GridPane.getColumnIndex(node) == j
-        //                         && node instanceof Button) {
-        //                             ((Button) node).setText("a");
-
-        //             }
-        //         }
-        //     }
-        // }
             for (Node node : grid.getChildren()) {
                 if (node instanceof Button) {
                     int i = GridPane.getRowIndex(node);
                     int j = GridPane.getColumnIndex(node);
+                    // if(mapa.mapa[i][j].isBomba()) ((Button) node).setText("X");
                     if (mapa.mapa[i][j].isRevelado()){
-                        ((Button) node).setText("" + ((CampoSemBomba) mapa.mapa[i][j]).getBombasAdjacentes());
+                         ((Button) node).setText("" + ((CampoSemBomba) mapa.mapa[i][j]).getBombasAdjacentes());
+
                     }
                 }
             }
