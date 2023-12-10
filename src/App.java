@@ -2,6 +2,7 @@ import java.io.IOException;
 
 import GameClasses.*;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,6 +36,7 @@ public class App extends Application{
     private Stage stage;
     private Scene scene;
     private Parent root;
+    String [] args;
             
     public static void main(String[] args) throws Exception {
         launch(args); // Parte responsavel por iniciar o jogo
@@ -132,10 +134,30 @@ public class App extends Application{
 
             if (mapa.mapa[rowIndex][colIndex].isBomba() && (e.getButton() == MouseButton.PRIMARY)){
                 Stage stagePerdeu = new Stage();
-                StackPane rootPerdeu = new StackPane();
+                StackPane root = new StackPane();
                 Label label = new Label("VOCE PERDEU");
-                rootPerdeu.getChildren().add(label);
-                Scene scenePerdeu = new Scene(rootPerdeu, 400, 300);
+                Button button = new Button("Voltar ao Menu");
+                button.setOnMouseClicked(f-> {
+                    Stage stage = (Stage) button.getScene().getWindow();
+                    stage.close();
+
+                    // Launch a new instance of the application
+                    Platform.runLater(() -> {
+                        try {
+                            new App().start(new Stage());
+                        } catch (Exception g) {
+                            g.printStackTrace();
+                        }
+                    });
+                }); 
+                VBox vBox = new VBox(2);
+                label.setAlignment(Pos.BASELINE_CENTER);
+
+                vBox.getChildren().addAll(label, button);
+                root.getChildren().add(vBox);
+                vBox.setAlignment(Pos.CENTER);
+
+                Scene scenePerdeu = new Scene(root, 400, 300);
                 stagePerdeu.setScene(scenePerdeu);
                 stagePerdeu.setTitle("Voce perdeu");
                 // Show the new stage
@@ -148,7 +170,26 @@ public class App extends Application{
                 Stage stageGanhou = new Stage();
                 StackPane rootGanhou = new StackPane();
                 Label label = new Label("VOCE GANHOU!!");
-                rootGanhou.getChildren().add(label);
+                Button button = new Button("Voltar ao Menu");
+                button.setOnMouseClicked(f-> {
+                    Stage stage = (Stage) button.getScene().getWindow();
+                    stage.close();
+
+                    // Launch a new instance of the application
+                    Platform.runLater(() -> {
+                        try {
+                            new App().start(new Stage());
+                        } catch (Exception g) {
+                            g.printStackTrace();
+                        }
+                    });
+                }); 
+                VBox vBox = new VBox(2);
+                label.setAlignment(Pos.BASELINE_CENTER);
+
+                vBox.getChildren().addAll(label, button);
+                vBox.setAlignment(Pos.CENTER);
+                rootGanhou.getChildren().add(vBox);
                 Scene sceneGanhou = new Scene(rootGanhou, 400, 300);
                 stageGanhou.setScene(sceneGanhou);
                 stageGanhou.setTitle("Voce ganhou");
