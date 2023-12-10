@@ -257,4 +257,12 @@ public class Mapa {
     public boolean isRevelado(int x, int y){
         return this.mapa[x][y].isRevelado();
     }
+
+    public int getTotCelulas() {
+        return totCelulas;
+    }
+
+    public int getCelulasAbertas() {
+        return celulasAbertas;
+    }
 }

@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,7 +21,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class App extends Application{
@@ -54,23 +60,77 @@ public class App extends Application{
     // O jogo é construido daqui pra baixo
     @Override
     public void start(Stage stage) throws Exception {
-            grid = new GridPane();
-            mapa = new Mapa("FACIL");
-            // Add buttons to the grid pane
-            iniciaGrid();
-    
-            Scene scene = new Scene(grid, 300, 200);
-            stage.setScene(scene);
-            stage.setTitle("Button GridPane Example");
-            stage.show();
 
-    }    
+            StackPane root = new StackPane();
+
+            Button botaoFacil = new Button("Diculdade Fácil");
+            botaoFacil.setPrefSize(200,50);
+            botaoFacil.setOnMouseClicked(e -> {
+                grid = new GridPane();
+                mapa = new Mapa("FACIL");
+                // Add buttons to the grid pane
+                iniciaGrid();
+    
+                Scene scene = new Scene(grid, 300, 200);
+                stage.setScene(scene);
+                stage.setTitle("Campo Minado");
+                stage.show();
+            });
+
+            Button botaoMedio = new Button("Diculdade Média");
+            botaoMedio.setPrefSize(200,50);
+            botaoMedio.setOnMouseClicked(e -> {
+                grid = new GridPane();
+                mapa = new Mapa("MEDIO");
+                // Add buttons to the grid pane
+                iniciaGrid();
+    
+                Scene scene = new Scene(grid, 400, 400);
+                stage.setScene(scene);
+                stage.setTitle("Campo Minado");
+                stage.show();
+            });
+
+            Button botaoDificil = new Button("Diculdade Difícil");
+            botaoDificil.setPrefSize(200,50);
+            botaoDificil.setOnMouseClicked(e -> {
+                grid = new GridPane();
+                mapa = new Mapa("DIFICIL");
+                // Add buttons to the grid pane
+                iniciaGrid();
+    
+                Scene scene = new Scene(grid, 500, 500);
+                stage.setScene(scene);
+                stage.setTitle("Campo Minado");
+                stage.show();
+            });
+
+            VBox caixaTexto = new VBox();
+            Text texto = new Text("Escolha a dificuldade do Campo Minado!");
+            texto.setFont(new Font(20));
+            caixaTexto.getChildren().add(texto);
+            caixaTexto.setAlignment(Pos.BASELINE_CENTER);
+
+            VBox caixaBotoes = new VBox();
+            caixaBotoes.setAlignment(Pos.CENTER);
+            caixaBotoes.getChildren().addAll(botaoFacil, botaoMedio, botaoDificil);
+
+            root.getChildren().add(caixaTexto);
+            root.getChildren().add(caixaBotoes);
+            Scene scene = new Scene(root, 400, 400);
+            stage.setScene(scene);
+            stage.setTitle("Campo Minado");
+            stage.show();
+    }
+
+    
     private void addPane(int colIndex, int rowIndex) {
         Button pane = new Button(" ");
         pane.setPrefSize(30, 30);
         pane.setOnMouseClicked(e -> {
             System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
-            if (mapa.mapa[rowIndex][colIndex].isBomba()){
+
+            if (mapa.mapa[rowIndex][colIndex].isBomba() && (e.getButton() == MouseButton.PRIMARY)){
                 Stage stagePerdeu = new Stage();
                 StackPane rootPerdeu = new StackPane();
                 Label label = new Label("VOCE PERDEU");
@@ -83,10 +143,25 @@ public class App extends Application{
                 stageAtual.close();
                 stagePerdeu.show();
             }
+
+            if (mapa.getCelulasAbertas() == mapa.getTotCelulas() - 1){
+                Stage stageGanhou = new Stage();
+                StackPane rootGanhou = new StackPane();
+                Label label = new Label("VOCE GANHOU!!");
+                rootGanhou.getChildren().add(label);
+                Scene sceneGanhou = new Scene(rootGanhou, 400, 300);
+                stageGanhou.setScene(sceneGanhou);
+                stageGanhou.setTitle("Voce ganhou");
+                // Show the new stage
+                Stage stageAtual = (Stage) pane.getScene().getWindow();
+                stageAtual.close();
+                stageGanhou.show();
+            }
+
             if (e.getButton() == MouseButton.SECONDARY){
-                if (mapa.mapa[rowIndex][colIndex].isBomba()){
-                    return;
-                }
+                //if (mapa.mapa[rowIndex][colIndex].isBomba()){
+                //    return;
+                //}
                 System.out.println("mouse direito");
                 mapa.modificaBadeira(rowIndex, colIndex);
                 for (Node node : grid.getChildren()) {
@@ -131,7 +206,7 @@ public class App extends Application{
 
     public void iniciaGrid(){
         System.out.println();
-        int numCols = mapa.getColunas() ; 
+        int numCols = mapa.getColunas() ;
         int numRows = mapa.getLinhas() ;
         this.grid = new GridPane();
 
