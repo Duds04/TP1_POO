@@ -29,8 +29,10 @@ public class controlerDifficult {
         
     
     public void initialize(){
-        int numCols = 8 ; 
-        int numRows = 8 ;
+        mapa = new Mapa("FACIL");
+
+        int numCols = mapa.getColunas() ; 
+        int numRows = mapa.getLinhas() ;
         this.grid = new GridPane();
 
         for (int i = 0 ; i < numCols ; i++) {
@@ -84,7 +86,8 @@ public class controlerDifficult {
         pane.setPrefSize(30, 30);
         pane.setOnMouseClicked(e -> {
             System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
-            mapa.abrirBloco(rowIndex, colIndex);
+            pane.setText(mapa.abrirBloco(rowIndex, colIndex));
+            mapa.mostraCampo();
             atualizaPane();
         });
         grid.add(pane, colIndex, rowIndex);
@@ -92,7 +95,7 @@ public class controlerDifficult {
 
     private void atualizaPane(){
         int i, j;
-        Button aux;
+        Button botaoAcessado;
         for(i=0;i<mapa.getLinhas();i++){
             for(j=0;j<mapa.getColunas();j++){
                 if(mapa.isRevelado(i, j)){
@@ -100,8 +103,9 @@ public class controlerDifficult {
                         if (GridPane.getRowIndex(node) != null && GridPane.getRowIndex(node) == i
                                 && GridPane.getColumnIndex(node) != null && GridPane.getColumnIndex(node) == j
                                 && node instanceof Button) {
-                            aux = (Button) node;
-                            aux.setText(""+mapa.contaBomba(i,j));
+                            botaoAcessado = (Button) node;
+                            botaoAcessado.fire();
+                            //botaoAcessado.setText(""+mapa.contaBomba(i, j));
                         }
                     }
                 }
@@ -110,7 +114,7 @@ public class controlerDifficult {
     }
 
     public void abrirFacil(ActionEvent event) throws IOException {
-        mapa = new Mapa("FACIL");
+        
         // GridPane root = FXMLLoader.load(getClass().getResource("mapaFacin.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         // stage.setScene(new Scene(root, 800, 800));
@@ -134,39 +138,48 @@ public class controlerDifficult {
     }
     public void abrirMedio(ActionEvent event) throws IOException {
         Mapa mapa = new Mapa("MEDIO");
-		root = FXMLLoader.load(getClass().getResource("mapaMedio.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        int numCols = 14;
-        int numRows = 14;
-        for (int i = 0 ; i < numCols ; i++) {
-            ColumnConstraints colConstraints = new ColumnConstraints();
-            colConstraints.setHgrow(Priority.SOMETIMES);
-            this.grid.getColumnConstraints().add(colConstraints);
-        }
+		// GridPane root = FXMLLoader.load(getClass().getResource("mapaFacin.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        // stage.setScene(new Scene(root, 800, 800));
 
-        for (int i = 0 ; i < numRows ; i++) {
-            RowConstraints rowConstraints = new RowConstraints();
-            rowConstraints.setVgrow(Priority.SOMETIMES);
-            grid.getRowConstraints().add(rowConstraints);
-        }
 
-        for (int i = 0 ; i < numCols ; i++) {
-            for (int j = 0; j < numRows; j++) {
-                addPane(i, j);
-            }
-        }
+		Scene scene = new Scene(this.grid, 600, 600);
+		// for (int i = 0; i < 8; i++){
+		// 	for (int j = 0; j < 8; j++){
+		// 		Button button = new Button(" ");
+		// 		root.add(button, i, j);
+		// 		root.setVgap(10);
+		// 		root.setHgap(10);
+		// 	}
+        // }
+        this.iniciaGrid();
+		// this.mapa = new Mapa("FACIL");
         stage.setScene(scene);
-        stage.show();
-		mapa.geraMapa("medio");
+		stage.setTitle("NIVEL MEDIO");
+		stage.show();
     }
+
     public void abrirDificil(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("medioDificil.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+        Mapa mapa = new Mapa("DIFICIL");
+        // GridPane root = FXMLLoader.load(getClass().getResource("mapaFacin.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        // stage.setScene(new Scene(root, 800, 800));
+
+
+		Scene scene = new Scene(this.grid, 600, 600);
+		// for (int i = 0; i < 8; i++){
+		// 	for (int j = 0; j < 8; j++){
+		// 		Button button = new Button(" ");
+		// 		root.add(button, i, j);
+		// 		root.setVgap(10);
+		// 		root.setHgap(10);
+		// 	}
+        // }
+        this.iniciaGrid();
+		// this.mapa = new Mapa("FACIL");
         stage.setScene(scene);
-        stage.show();
-		mapa.geraMapa("dificil");
+		stage.setTitle("NIVEL DIFICIL");
+		stage.show();
     }
     
     public void switchToScene2(ActionEvent event) throws IOException {
