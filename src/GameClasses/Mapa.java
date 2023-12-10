@@ -7,7 +7,7 @@ public class Mapa {
     private int totalBombas;
 
     // TODO: precisa dessa variavel?
-    private int bandeirasRestantes;
+    //private int bandeirasRestantes;
     private int linhas;
     private int colunas;
     private int totCelulas; // total de celulas que o usuario deve abrir
