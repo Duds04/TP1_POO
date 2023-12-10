@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.ColumnConstraints;
@@ -18,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
@@ -68,7 +70,48 @@ public class App extends Application{
         pane.setPrefSize(30, 30);
         pane.setOnMouseClicked(e -> {
             System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
+            if (mapa.mapa[rowIndex][colIndex].isBomba()){
+                Stage stagePerdeu = new Stage();
+                StackPane rootPerdeu = new StackPane();
+                Label label = new Label("VOCE PERDEU");
+                rootPerdeu.getChildren().add(label);
+                Scene scenePerdeu = new Scene(rootPerdeu, 400, 300);
+                stagePerdeu.setScene(scenePerdeu);
+                stagePerdeu.setTitle("Voce perdeu");
+                // Show the new stage
+                Stage stageAtual = (Stage) pane.getScene().getWindow();
+                stageAtual.close();
+                stagePerdeu.show();
+            }
+            if (e.getButton() == MouseButton.SECONDARY){
+                if (mapa.mapa[rowIndex][colIndex].isBomba()){
+                    return;
+                }
+                System.out.println("mouse direito");
+                mapa.modificaBadeira(rowIndex, colIndex);
+                for (Node node : grid.getChildren()) {
+                    if (node instanceof Button) {
+                        int i = GridPane.getRowIndex(node);
+                        int j = GridPane.getColumnIndex(node);
+                        // if(mapa.mapa[i][j].isBomba()) ((Button) node).setText("X"); // vai mostrar os Xs
+                        if (mapa.mapa[i][j].isBandeira() && mapa.mapa[i][j].isRevelado() == false){
+                            ((Button) node).setText("B");
+                            continue;
+                        }
+                        if (mapa.mapa[i][j].isRevelado() == false){
+                            ((Button) node).setText(" ");
+                            continue;
+                        }
+                        if (mapa.mapa[i][j].isRevelado()){
+                            ((Button) node).setText("" + ((CampoSemBomba) mapa.mapa[i][j]).getBombasAdjacentes());
+                            continue;
+                        }
+                    }
+                }
+                return;
+            }
             mapa.abrirBloco(rowIndex, colIndex);
+
             mapa.mostraCampo();
             for (Node node : grid.getChildren()) {
                 if (node instanceof Button) {
